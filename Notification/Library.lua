@@ -1,109 +1,96 @@
--- // notification library
+-- // notification system
 local utility = {}
 
 -- // services
+local players = game:GetService("Players")
 local tweenservice = game:GetService("TweenService")
 local runservice = game:GetService("RunService")
 
--- // variables
+-- // variables 
+local player = players.LocalPlayer
 local notifications = {}
-local notificationcontainer = Instance.new("ScreenGui", gethui())
+local screen = Instance.new("ScreenGui")
 
--- // functions
-utility.tween = function(...)
-   local tween = tweenservice:Create(...)
-   tween:Play()
-   return tween
+-- // initialization
+screen.Name = "NotificationsGui"
+screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- // protect gui
+if syn and syn.protect_gui then
+   syn.protect_gui(screen)
+   screen.Parent = game:GetService("CoreGui")
+elseif gethui then
+   screen.Parent = gethui()
+else
+   screen.Parent = game:GetService("CoreGui")
+end
+
+utility.new_notification = function(text, duration, color)
+   duration = duration or 5
+   color = color or Color3.fromRGB(255, 0, 0)
+   
+   local notification = Instance.new("Frame")
+   notification.Name = "Notification"
+   notification.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+   notification.BorderColor3 = Color3.fromRGB(35, 35, 35)
+   notification.BorderMode = Enum.BorderMode.Inset
+   notification.Position = UDim2.new(1, 300, 0, 75) 
+   notification.Size = UDim2.new(0, 300, 0, 40)
+   notification.ZIndex = 2
+   notification.Parent = screen
+
+   local accent = Instance.new("Frame")
+   accent.Name = "Accent"
+   accent.BackgroundColor3 = color
+   accent.BorderSizePixel = 0
+   accent.Size = UDim2.new(0, 2, 1, 0)  
+   accent.ZIndex = 3
+   accent.Parent = notification
+
+   local title = Instance.new("TextLabel")
+   title.Name = "Title"
+   title.BackgroundTransparency = 1
+   title.Position = UDim2.new(0, 10, 0, 0)
+   title.Size = UDim2.new(1, -10, 0, 20)
+   title.Font = Enum.Font.Ubuntu
+   title.Text = "promisessence"
+   title.TextColor3 = color
+   title.TextSize = 14
+   title.TextXAlignment = Enum.TextXAlignment.Left
+   title.ZIndex = 4
+   title.Parent = notification
+
+   local message = Instance.new("TextLabel") 
+   message.Name = "Message"
+   message.BackgroundTransparency = 1
+   message.Position = UDim2.new(0, 10, 0, 20)
+   message.Size = UDim2.new(1, -10, 0, 20)
+   message.Font = Enum.Font.Ubuntu
+   message.Text = text
+   message.TextColor3 = Color3.new(1, 1, 1)
+   message.TextSize = 13
+   message.TextXAlignment = Enum.TextXAlignment.Left
+   message.ZIndex = 4
+   message.Parent = notification
+
+   tweenservice:Create(notification, TweenInfo.new(0.2), {Position = UDim2.new(1, -310, 0, 75)}):Play()
+
+   table.insert(notifications, notification)
+   utility.update_notifications()
+
+   task.delay(duration, function()
+       tweenservice:Create(notification, TweenInfo.new(0.2), {Position = UDim2.new(1, 300, notification.Position.Y.Scale, notification.Position.Y.Offset)}):Play()
+       task.wait(0.2)
+       table.remove(notifications, table.find(notifications, notification))
+       notification:Destroy()
+       utility.update_notifications() 
+   end)
 end
 
 utility.update_notifications = function()
-   local i = 0
-   for notification in next, notifications do
-       if notification.holder then
-           utility.tween(notification.holder, TweenInfo.new(0.8, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Position = UDim2.new(0, 20, 0, 75 + (i * 25))})
-           i = i + 1
-       end
+   for i, notification in next, notifications do
+       tweenservice:Create(notification, TweenInfo.new(0.2), {Position = UDim2.new(1, -310, 0, 75 + (i - 1) * 45)}):Play()
    end
-end
-
-utility.cleanup_notification = function(notification)
-   for _, object in pairs(notification) do
-       if typeof(object) == "Instance" then
-           task.spawn(function()
-               local tween = utility.tween(object, TweenInfo.new(1, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {BackgroundTransparency = 1})
-               tween.Completed:Connect(function()
-                   if object.Name == "Holder" then object:Destroy() end
-               end)
-               if object:IsA("TextLabel") then
-                   utility.tween(object, TweenInfo.new(1, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {TextTransparency = 1})
-               end
-           end)
-       end
-   end
-end
-
-utility.notify = function(text, duration, color)
-   duration = duration or 2
-   color = color or Color3.fromRGB(173, 216, 230)
-   text = text or "No text provided? "..tostring(math.random())
-
-   local notification = {}
-
-   notification.holder = Instance.new("Frame")
-   notification.holder.Position = UDim2.new(0, -30, 0, 75)
-   notification.holder.Size = UDim2.new(0, 0, 0, 23)
-   notification.holder.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
-   notification.holder.BorderSizePixel = 1
-   notification.holder.BorderColor3 = Color3.fromRGB(0, 0, 0)
-   notification.holder.Parent = notificationcontainer
-
-   notification.background = Instance.new("Frame")
-   notification.background.Size = UDim2.new(1, -4, 1, -4)
-   notification.background.Position = UDim2.new(0, 2, 0, 2)
-   notification.background.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
-   notification.background.BorderSizePixel = 1
-   notification.background.BorderColor3 = Color3.fromRGB(0, 0, 0)
-   notification.background.Parent = notification.holder
-
-   notification.accent_bar = Instance.new("Frame")
-   notification.accent_bar.Size = UDim2.new(0, 1, 1, 0)
-   notification.accent_bar.BackgroundColor3 = color
-   notification.accent_bar.Parent = notification.background
-
-   notification.accent_bar2 = Instance.new("Frame")
-   notification.accent_bar2.Size = UDim2.new(0, 0, 0, 1)
-   notification.accent_bar2.Position = UDim2.new(0, 0, 0, 15)
-   notification.accent_bar2.BackgroundColor3 = color
-   notification.accent_bar2.Parent = notification.background
-
-   notification.text = Instance.new("TextLabel")
-   notification.text.TextXAlignment = Enum.TextXAlignment.Left
-   notification.text.Position = UDim2.new(0, 3, 0, 0)
-   notification.text.Size = UDim2.new(1, 0, 1, 0)
-   notification.text.Font = Enum.Font.Ubuntu
-   notification.text.TextColor3 = Color3.new(1, 1, 1)
-   notification.text.BackgroundTransparency = 1
-   notification.text.TextSize = 12
-   notification.text.Text = text
-   notification.text.Parent = notification.background
-
-   notification.holder.Size = UDim2.new(0, notification.text.TextBounds.X + 10, 0, 19)
-   notification.accent_bar2.Size = UDim2.new(0, 1, 0, 1)
-
-   notifications[notification] = true
-
-   task.spawn(function()
-       notification.holder.Size = UDim2.new(0, notification.text.TextBounds.X + 10, 0, 19)
-       utility.update_notifications()
-       notification.accent_bar2:TweenSize(UDim2.new(0, notification.background.AbsoluteSize.X - 1, 0, 1), Enum.EasingDirection.Out, Enum.EasingStyle.Linear, duration, false)
-       task.wait(duration)
-       utility.cleanup_notification(notification)
-       task.wait(1.2)
-       notifications[notification] = nil
-       utility.update_notifications()
-   end)
-
-   return notification
 end
 
 return utility
