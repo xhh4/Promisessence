@@ -1,7 +1,7 @@
 script_key="UR_KEY_HERE";
 -- // Config table
 getgenv().Promisessence = {
-    -- // Camlock configuration
+    -- // Camlock configuration 
     Camlock = {
         Enabled = true, -- // Toggles camlock
         Binding = {
@@ -10,7 +10,8 @@ getgenv().Promisessence = {
         },
         Prediction = {
             Enabled = true, -- // Toggles prediction
-            Amount = 0.06 -- // Prediction amount
+            Amount = 0.06, -- // Prediction amount
+            Prediction_Method = "Velocity" -- // Velocity, AssemblyLinearVelocity
         },
         Smoothness = 1, -- // Camera smoothing amount
         Hit_Part = "Head", -- // Target part 
@@ -31,7 +32,8 @@ getgenv().Promisessence = {
         Enabled = true, -- // Toggles silent aim
         Prediction = {
             Enabled = true, -- // Toggles prediction
-            Amount = 0.06 -- // Prediction amount
+            Amount = 0.06, -- // Prediction amount
+            Prediction_Method = "Velocity" -- // Velocity, AssemblyLinearVelocity
         },
         Hit_Part = "Head", -- // Target part
         Closest_Part = false, -- // Aims at closest part
@@ -51,7 +53,8 @@ getgenv().Promisessence = {
         Part = "HumanoidRootPart", -- // Teleport part
         Prediction = {
             Enabled = true, -- // Toggles prediction 
-            Amount = 0.918 -- // Prediction amount
+            Amount = 0.918, -- // Prediction amount
+            Prediction_Method = "Velocity" -- // Velocity, AssemblyLinearVelocity
         },
         Health = 25, -- // Health threshold
         Jump_Delay = 0.81 -- // Delay after jump
@@ -125,5 +128,5 @@ getgenv().Promisessence = {
             ['Slot 0'] = "[Katana]" -- // Weapon in slot 0
         }
     }
-}
+ }
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/6a2096b6b4e7f0e348b61983370e92d2.lua"))()
