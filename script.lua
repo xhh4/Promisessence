@@ -1,4 +1,4 @@
-script_key="UR_KEY_HERE";
+script_key="UR_KEY_HERE"
 getgenv().Promisessence = {
     Camlock = {
         Enabled = true, -- // Toggles camlock
