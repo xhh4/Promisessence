@@ -3,14 +3,14 @@ getgenv().Promisessence = {
     Camlock = {
         Enabled = true, -- // Toggles camlock
         Binding = {
-            Key = Enum.KeyCode.Q, -- // Key to toggle/hold
-            Mode = "Toggle" -- // Toggle, Hold  
+            Key = Enum.KeyCode.Q, -- // Key to toggle/hold  
+            Mode = "Toggle" -- // Toggle, Hold
         },
         Prediction = {
             Enabled = true, -- // Toggles prediction
             Amount = 0.06 -- // Prediction amount
         },
-        Smoothness = 1, -- // Camera smoothing amount 
+        Smoothness = 1, -- // Camera smoothing amount
         Hit_Part = "Head", -- // Target part
         Easing = {
             Style = "Quad", -- // Linear, Quad, Cubic, Sine, Back
@@ -26,7 +26,7 @@ getgenv().Promisessence = {
     Silent = {
         Enabled = true, -- // Toggles silent aim
         Prediction = {
-            Enabled = true, -- // Toggles prediction 
+            Enabled = true, -- // Toggles prediction
             Amount = 0.06 -- // Prediction amount
         },
         Hit_Part = "Head", -- // Target part
@@ -34,8 +34,8 @@ getgenv().Promisessence = {
         Closest_Point = true, -- // Aims at closest point
         FOV = {
             Visible = true, -- // Shows FOV circle
-            Color = Color3.new(1, 1, 1), -- // Circle color
-            Thickness = 1, -- // Circle thickness 
+            Color = Color3.new(1, 1, 1), -- // Circle color 
+            Thickness = 1, -- // Circle thickness
             Radius = 250 -- // Circle size
         }
     },
@@ -65,6 +65,11 @@ getgenv().Promisessence = {
             Key = Enum.KeyCode.Z, -- // Key to toggle glitch
             Mode = "Third", -- // First, Third
             Delay = 0.01 -- // Delay between glitches
+        },
+        Walkspeed = {
+            Enabled = true, -- // Toggles walkspeed modification
+            Key = Enum.KeyCode.V, -- // Key to toggle walkspeed
+            Speed = 90 -- // Walkspeed value
         }
     },
     Visuals = {
@@ -96,7 +101,7 @@ getgenv().Promisessence = {
             Enabled = true, -- // Toggles inventory sorter
             Keybind = Enum.KeyCode.Equals, -- // Key to sort inventory
             ['Slot 1'] = "[Double-Barrel SG]", -- // Weapon in slot 1
-            ['Slot 2'] = "[Revolver]", -- // Weapon in slot 2 
+            ['Slot 2'] = "[Revolver]", -- // Weapon in slot 2
             ['Slot 3'] = "[Cookie]", -- // Item in slot 3
             ['Slot 4'] = "[Chicken]", -- // Item in slot 4
             ['Slot 5'] = "[Chicken]", -- // Item in slot 5
