@@ -1,5 +1,4 @@
 script_key="UR_KEY_HERE";
--- // Config table
 getgenv().Promisessence = {
     -- // Camlock configuration 
     Camlock = {
@@ -15,6 +14,7 @@ getgenv().Promisessence = {
         },
         Smoothness = 1, -- // Camera smoothing amount
         Hit_Part = "Head", -- // Target part 
+        Jump_Offset = -1.5,
         Easing = {
             Style = "Quad", -- // Linear, quad, cubic, sine, back
             Direction = "Out" -- // In, out, inout
@@ -36,6 +36,7 @@ getgenv().Promisessence = {
             Prediction_Method = "Velocity" -- // Velocity, AssemblyLinearVelocity
         },
         Hit_Part = "Head", -- // Target part
+        Jump_Offset = -1.5,
         Closest_Part = false, -- // Aims at closest part
         FOV = {
             Visible = true, -- // Shows fov circle
@@ -81,7 +82,7 @@ getgenv().Promisessence = {
         Walkspeed = {
             Enabled = true, -- // Toggles walkspeed modification
             Key = Enum.KeyCode.V, -- // Key to toggle walkspeed
-            Speed = 90 -- // Walkspeed value
+            Speed = 287 -- // Walkspeed value
         }
     },
  
@@ -108,6 +109,12 @@ getgenv().Promisessence = {
             Enabled = false, -- // Toggles textures
             Material = Enum.Material.Sand, -- // World material
             Color = Color3.fromRGB(194, 178, 128) -- // World color
+        },
+        Tracers = {
+            Enabled = true, -- // Toggles tracers
+            Color = Color3.new(1, 1, 1), -- // Tracer color 
+            Thickness = 1, -- // Line thickness
+            Transparency = 1 -- // Line transparency
         }
     },
  
