@@ -1,4 +1,4 @@
-script_key="UR_KEY_HERE";
+script_key="UR_KEY_HERE"; -- your key
 getgenv().Promisessence = {
     -- Camlock configuration
     Camlock = {
