@@ -91,9 +91,9 @@ getgenv().Promisessence = {
             Color = Color3.new(1, 1, 1) -- Keybind color
         },
         Ambience = {
-            Enabled = false, -- Toggles ambience
-            Outdoor = Color3.fromRGB(33, 33, 33), -- Outside lighting
-            Indoor = Color3.fromRGB(33, 33, 33)  -- Inside lighting
+            Enabled = true, -- Toggles ambience
+            Outdoor = Color3.fromRGB(138,43,226), -- Outside lighting
+            Indoor = Color3.fromRGB(138,43,226)  -- Inside lighting
         },
         Textures = {
             Enabled = false, -- Toggles textures
