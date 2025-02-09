@@ -1,6 +1,6 @@
 script_key="UR_KEY_HERE";
 getgenv().Promisessence = {
-    -- Camlock configuration for camera control
+    -- Camlock configuration
     Camlock = {
         Enabled = true,          -- Toggles camlock
         Binding = {
@@ -27,7 +27,7 @@ getgenv().Promisessence = {
         }
     },
  
-    -- Silent aim configuration for shot manipulation
+    -- Silent aim configuration
     Silent = {
         Enabled = true,         -- Toggles silent aim
         Prediction = {
@@ -46,7 +46,7 @@ getgenv().Promisessence = {
         }
     },
  
-    -- Check configurations for target validation
+    -- Check configurations for target
     Checks = {
         Death = true,         -- Checks if target is dead
         Wall = false,         -- Checks for walls
@@ -56,7 +56,7 @@ getgenv().Promisessence = {
         }
     },
  
-    -- Movement enhancement configurations
+    -- Movement configurations
     Movement = {
         Speed_Glitch = {
             Enabled = true,   -- Toggles speed glitch
@@ -76,7 +76,7 @@ getgenv().Promisessence = {
         }
     },
  
-    -- Visual configurations for UI and world appearance
+    -- Visual configurations
     Visuals = {
         Watermark = {
             Enabled = true,  -- Shows watermark
